@@ -1,0 +1,45 @@
+1. Remove .env from current tracked files
+
+   git rm  --cached <filename> 
+   
+
+   for folder 
+
+   git rm -r --cached folderpatth
+
+2. Add file to .gitignore ( optional)
+
+   echo ".env" >> .gitignore
+
+
+3. Commit the removal 
+
+ git add .gitignore
+ git commit -m "remove env from repository"
+
+
+4. Install BFG package 
+   https://formulae.brew.sh/formula/bfg
+
+
+5.Run BFG to remove <file>  from ALL history   
+  bfg --delete-files <file>
+  for folder 
+   bfg --delete-folders FOLDER_NAME_PATH
+
+6.Cleanup unreachable Git objects
+  git reflog expire --expire=now --all
+  git gc --prune=now --aggressive
+
+
+
+  *note: gc is git clean command *
+
+7. Force push rewritten history to GitHub 
+   git push --force origin Main
+
+8. Verify <file> is completely removed
+   git log --all -- .env
+
+9. Check raw Git objects
+  git rev-list --objects --all | grep .env
